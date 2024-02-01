@@ -1,15 +1,22 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+
+
 # TODO создайте здесь все необходимые формы
 
 
 class TemplateForm(forms.Form):
-    my_text = forms.CharField()
+    my_name = forms.CharField(label='Введите своё имя', max_length=50)
     # choices в ChoiceField нужен только для отображения в HTML форме
+    email = forms.EmailField()
+    password = forms.CharField(label='password:', widget = forms.PasswordInput, max_length=30)
+    birthday = forms.DateField()
+    experience = forms.IntegerField()
+    remember_me = forms.BooleanField()
     my_select = forms.ChoiceField(choices=(
         ("begin", "Начальные"),
         ("middle", "Средние"),
-        ("snake_speek", "Разговариваю со змеями"),
+        ("snake_speak", "Разговариваю со змеями"),
     ))
     # widget тоже нужен только для отображения в HTML
     my_textarea = forms.CharField(widget=forms.Textarea)
