@@ -5,14 +5,14 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 # TODO создайте здесь все необходимые формы
 
 
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+# TODO создайте здесь все необходимые формы
+
+
 class TemplateForm(forms.Form):
-    my_name = forms.CharField(label='Введите своё имя', max_length=50)
+    my_text = forms.CharField()
     # choices в ChoiceField нужен только для отображения в HTML форме
-    email = forms.EmailField()
-    password = forms.CharField(label='password:', widget = forms.PasswordInput, max_length=30)
-    birthday = forms.DateField()
-    experience = forms.IntegerField()
-    remember_me = forms.BooleanField()
     my_select = forms.ChoiceField(choices=(
         ("begin", "Начальные"),
         ("middle", "Средние"),
@@ -20,8 +20,16 @@ class TemplateForm(forms.Form):
     ))
     # widget тоже нужен только для отображения в HTML
     my_textarea = forms.CharField(widget=forms.Textarea)
+    my_email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+    birthday = forms.DateField()
+    experience_months = forms.IntegerField()
 
-    # TODO Опишите поля (поле для email, пароля, даты, целого числа, переключателя) и их параметры для вашего шаблона формы
+
+
+
+
+    # TODO Опишите поля (поле для email, пароля, даты, целого числа, переключателя) и их параметры для вашего шаблона формы)
 
 
 """

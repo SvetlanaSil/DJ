@@ -4,6 +4,7 @@ from django.http import HttpRequest, JsonResponse
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout, authenticate
 from .forms import TemplateForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 def template_view(request):
@@ -12,19 +13,34 @@ def template_view(request):
 
     if request.method == "POST":
         received_data = request.POST  # Приняли данные в словарь
+        # return JsonResponse(received_data, json_dumps_params={'indent': 4, 'ensure_ascii': False})
+
         form = TemplateForm(received_data)  # Передали данные в форму
         if form.is_valid():  # Проверили, что данные все валидные
-            my_name = form.cleaned_data.get("my_name")  # Получили очищенные данные
+            my_text = form.cleaned_data.get("my_text")  # Получили очищенные данные
             my_select = form.cleaned_data.get("my_select")
             my_textarea = form.cleaned_data.get("my_textarea")
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            birthday = form.cleaned_data.get('birthday')
+            experience = form.cleaned_data.get('experience_months')
+            remember_me = form.cleaned_data.get('remember_me')
 
-            return JsonResponse({'my_name': my_name
-                                 },
-                                json_dumps_params={'indent': 4, 'ensure_ascii': False})
+
+            return JsonResponse(
+                {'my_name': my_text, 'my_select': my_select, 'my_textarea': my_textarea, 'email': email,
+                 'password': password, 'birthday': birthday, 'experience (months)': experience, 'remember_me?': remember_me},
+                json_dumps_params={'indent': 4, 'ensure_ascii': False})
 
             # TODO Получите остальные данные из формы и сделайте необходимые обработки (если они нужны)
 
             # TODO Верните HttpRequest или JsonResponse с данными
+
+        return render(request, 'app/template_form.html', context={"form": form})
+
+        # TODO Получите остальные данные из формы и сделайте необходимые обработки (если они нужны)
+
+        # TODO Верните HttpRequest или JsonResponse с данными
 
         return render(request, 'app/template_form.html', context={"form": form})
 
@@ -34,7 +50,6 @@ def template_view(request):
     # TODO Проведите здесь получение и обработку данных если это необходимо
 
     # TODO Верните HttpRequest или JsonResponse с данными
-    # return JsonResponse(received_data, json_dumps_params={'indent': 4, 'ensure_ascii': False})
 
 
 def login_view(request):
