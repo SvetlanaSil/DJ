@@ -46,6 +46,13 @@ AUTHENTICATION_BACKENDS = (
    'django.contrib.auth.backends.ModelBackend',
 )
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.ethereal.email'
+EMAIL_HOST_USER = 'fritz7@ethereal.email'
+EMAIL_HOST_PASSWORD = 'knKj4QYw3tH6wpb1WM'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+
 LOGIN_REDIRECT_URL = '/profile/' # Чтобы после авторизации перенаправлялось на страницу пользователя
 
 SOCIAL_AUTH_GITHUB_KEY = '33aec555243ec73995bd'
