@@ -12,6 +12,7 @@ class TemplateForm(forms.Form):
     ))
     # widget тоже нужен только для отображения в HTML
     my_textarea = forms.CharField(widget=forms.Textarea)
+
     email = forms.EmailField(widget=forms.EmailInput)
     password = forms.CharField(widget=forms.PasswordInput)
     birthday = forms.DateField()

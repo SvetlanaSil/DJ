@@ -3,4 +3,4 @@ from .views import my_view
 
 urlpatterns = [
     # TODO добавьте здесь маршрут для вашего обработчика отображения страницы приложения landing
-    path('landing/', my_view)]
+    path('', my_view)]
