@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-# TODO создайте здесь все необходимые формы
+from django.core.exceptions import ValidationError
 
+
+# TODO создайте здесь все необходимые формы
 
 class TemplateForm(forms.Form):
     my_text = forms.CharField()
@@ -13,8 +15,42 @@ class TemplateForm(forms.Form):
     ))
     # widget тоже нужен только для отображения в HTML
     my_textarea = forms.CharField(widget=forms.Textarea)
-
+    my_password = forms.CharField(widget=forms.PasswordInput)
+    my_email = forms.EmailField()
+    my_date = forms.DateField()
+    my_age = forms.IntegerField()
+    my_checkbox = forms.BooleanField()
     # TODO Опишите поля (поле для email, пароля, даты, целого числа, переключателя) и их параметры для вашего шаблона формы
+
+
+class MyAuthenticationForm(AuthenticationForm):
+    error_messages = {
+        "invalid_login": (
+            "Введены некорректные логин и пароль"
+        ),
+        'inactive': "This account is inactive.",
+    }
+
+
+def get_invalid_login_error(self):
+    return ValidationError(
+        self.error_messages_["invalid_login"],
+        code="invalid_login",
+        params={"username": self.username_field.verbose_name},
+    )
+
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(widget=forms.EmailInput)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+            # if hasattr(self, "save_m2m"):
+            #     self.save_m2m()
+        return user
 
 
 """

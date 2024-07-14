@@ -19,14 +19,39 @@
 					<h4 class="text-center mb-4">
 						Заголовок вашей формы
 					</h4>
-					<form method="post">
+					<form action="" method="post">
                         {% csrf_token %}
 						<!-- Запишите здесь тег {% csrf_token %} -->
 
-                        <label for="my_text">Введи своё имя</label>  <!--for="my_text" это привязка к объекту с id="my_text", id - всегда должен быть уникален во всем HTML документе-->
+                        <label for="my_text">Введите своё имя</label>  <!--for="my_text" это привязка к объекту с id="my_text", id - всегда должен быть уникален во всем HTML документе-->
                         <div class="form-input">  <!-- Блок для оборачивания строки формы -->
-                            <span><i class="fa fa-id-card"></i></span>  <!-- Fontawesom картинка в строке ввода-->
+                            <span><i class="fa fa-address-book"></i></span>  <!-- Fontawesom картинка в строке ввода-->
 							<input type="text" id="my_text" name="my_text" placeholder="Иван" required>  <!-- Строка ввода-->
+						</div>
+						<label for="my_email">Введите свой адрес электронной почты:</label>
+                        <div class="form-input">
+                            <span><i class="fa fa-envelope-open-o"></i></span>
+							<input type="email" id="my_email" name="my_email" placeholder="example@test.ru" required>  <!-- Строка ввода-->
+						</div>
+						<label for="my_date">Введите дату вашего рождения:</label>
+						<div class="form-input">
+							<span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+							<input type="date" id="my_date" name="my_date">
+						</div>
+						<label for="my_age">Сколько вам полных лет?</label>
+						<div class="form-input">
+							<span><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
+							<input type="number" id="my_age" name="my_age" min="1" max="99" step="1">
+						</div>
+						<label for="my_password">Придумайте надежный пароль:</label>
+						<div class="form-input">
+							<span><i class="fa fa-key" aria-hidden="true"></i></span>
+							<input type="password" id="my_password" name="my_password" placeholder="********">
+						</div>
+						<label for="my_checkbox">Переключатель</label>
+						<div class="form-input">
+							<span><i class="fa fa-arrows" aria-hidden="true"></i></span>
+							<input type="checkbox" id="my_checkbox" name="my_checkbox">
 						</div>
                         <!-- Поле с выбором -->
                         <label for="my_select">Выберите свои знания в Python</label>
@@ -59,7 +84,12 @@
                         <!--------------------------------------------------------------------------------------------->
 
                         <!-- В форме всегда присутствует кнопка чтобы что-то отправить. Кнопку не изменять! -->
-						<div class="mb-3"> 
+						{% if form.errors %}
+						<div class="mb-3 d-flex align-items-center">
+							<span style="color: red; font-size: 16px">{{ form.errors }}</span>
+						</div>
+						{% endif %}
+						<div class="mb-3">
 							<button type="submit" class="btn btn-block">
 								Отправить данные
 							</button>
